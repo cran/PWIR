@@ -1,13 +1,8 @@
 #
-# PWI.R
+# PWI2.R
 # Author: Dr. Robin Haunschild
 # Version: 0.0.3
 # Date: 10/20/2023
-#
-
-#
-# Todo:
-# include parallel version
 #
 
 #' @title Function to calculate prize winner indices based on bibliometric data
@@ -18,13 +13,13 @@
 #' Users can provide recipients of other prizes.
 #'
 #' @details
-#' PWI(files=bibliographic_files, pw_pattern = '(BOYACK K)|(KLAVANS R)|(BORNMANN L)|(BAR-ILAN J)|(BARILAN J)|
+#' PWI2(bib_df=bibliographic_dataframe, pw_pattern = '(BOYACK K)|(KLAVANS R)|(BORNMANN L)|(BAR-ILAN J)|(BARILAN J)|
 #' (WALTMAN L)|(THELWALL M)|(CRONIN B)|(PERSSON O)|(VINKLER P)|(MCCAIN K)|(INGWERSEN P)|
 #' (LEYDESDORFF L)|(ROUSSEAU R)|(EGGHE L)|(GLANZEL W)|(GLAENZEL W)|(MOED H)|(IRVINE J)|
 #' (MARTIN B)|(GRIFFITH B)|(VAN RAAN A)|(VANRAAN A)|(MERTON R)|(SCHUBERT A)|(BROOKES B)|
 #' (NARIN F)|(NALIMOV V)|(BRAUN T)|(MORAVCSIK M)|(GARFIELD E)',
-#' method=1, verbosity=1, data_source='wos', data_format='plaintext')
-#' Only the argument files is necessary. All other arguments are optional.
+#' method=1, verbosity=1)
+#' Only the argument bib_df is necessary. All other arguments are optional.
 #'
 #' Literature:
 #'
@@ -32,12 +27,11 @@
 #'
 #' @examples
 #' \donttest{
-#' JoI <- PWI('http://andreas-thor.github.io/cre/data/savedrecs_JOI2.txt')
+#' bib_df <- bibliometrix::convert2df('http://andreas-thor.github.io/cre/data/savedrecs_JOI2.txt')
+#' JoI <- PWI2(bib_df)
 #' head(JoI)
 #' }
-#' @param files character variable or list of character variables that contain(s)
-#' file name(s) of bibliographic data file(s) that are supported by the package
-#' \link{bibliometrix}
+#' @param bib_df bibliographic dataframe variable from \link{convert2df}
 #' @param pw_pattern character variable (optional parameter) that is passed as
 #' search pattern to the \link{grep} function to identify the prize winners in
 #' the data set
@@ -48,19 +42,11 @@
 #' 1: calculate the prize winner index and return it alongside with number of papers
 #' and number of co-authorships
 #' @param verbosity level of verbosity (0=quiet and 1=informative)
-#' @param data_source specifies the data source; this parameter is forwarded to
-#' the function \link{convert2df} from the R package \link{bibliometrix}. The default
-#' value is "wos"; other possible values are: "isi", "scopus", "dimensions", or "pubmed"
-#' @param data_format specifies the data format; this parameter is forwarded to
-#' the function \link{convert2df} from the R package \link{bibliometrix}. The default
-#' value is "plaintext"; other possible values are: "api", "bibtex", "endnote", "csv",
-#' or "excel"
 #'
 #' @returns data frame of researcher names, PWI value, number of papers, and number of co-authors
 #'
 #' @export
 #'
-#' @importFrom bibliometrix convert2df
 #' @importFrom bibliometrix biblioNetwork
 #' @importFrom bibliometrix biblioAnalysis
 #' @importFrom igraph graph.adjacency
@@ -72,17 +58,13 @@
 #' @importFrom utils setTxtProgressBar
 #' @importFrom utils txtProgressBar
 
-PWI <- function(files, pw_pattern = '(BOYACK K)|(KLAVANS R)|(BORNMANN L)|(...',
-                method = 1, verbosity=1, data_source = 'wos', data_format = 'plaintext') {
-# requireNamespace('bibliometrix')
-
-# attach(countries)
-# on.exit('detach(countries)')
+PWI2 <- function(bib_df, pw_pattern = '(BOYACK K)|(KLAVANS R)|(BORNMANN L)|(...',
+                method = 1, verbosity=1) {
 
  if(pw_pattern == '(BOYACK K)|(KLAVANS R)|(BORNMANN L)|(...') {
    pw_pattern <- '(BOYACK K)|(KLAVANS R)|(BORNMANN L)|(BAR-ILAN J)|(BARILAN J)|(WALTMAN L)|(THELWALL M)|(CRONIN B)|(PERSSON O)|(VINKLER P)|(MCCAIN K)|(INGWERSEN P)|(LEYDESDORFF L)|(ROUSSEAU R)|(EGGHE L)|(GLANZEL W)|(GLAENZEL W)|(MOED H)|(IRVINE J)|(MARTIN B)|(GRIFFITH B)|(VAN RAAN A)|(VANRAAN A)|(MERTON R)|(SCHUBERT A)|(BROOKES B)|(NARIN F)|(NALIMOV V)|(BRAUN T)|(MORAVCSIK M)|(GARFIELD E)'
  }
- df <- bibliometrix::convert2df(file=files, dbsource=data_source, format=data_format)
+ df <- bib_df
  if(verbosity==1) { print(paste('Read', length(unique(df$UT)), 'unique documents.')) }
  NetMat <- bibliometrix::biblioNetwork(df, analysis = 'collaboration', network = 'authors')
 
@@ -103,7 +85,7 @@ PWI <- function(files, pw_pattern = '(BOYACK K)|(KLAVANS R)|(BORNMANN L)|(...',
  if(method == 0) {
    df_au <- df_au[order(-df_au$PAPERS),]
    df_au$PW <- 'default'
-   df_au[grepl(pw_pattern, df_au$NAME),]$PW <- 'YES' 
+   df_au[grepl(pw_pattern, df_au$NAME),]$PW <- 'YES'
    df_au[!grepl(pw_pattern, df_au$NAME),]$PW <- 'NO'
    return(df_au)
  } else {
@@ -145,8 +127,8 @@ PWI <- function(files, pw_pattern = '(BOYACK K)|(KLAVANS R)|(BORNMANN L)|(...',
 # Add minimum and maximum publication years
   df_py <- data.frame(NAME = 'dummy', MIN_PY=-1, MAX_PY=-2)
   for(i in df_dist_freq_weight_sum_agg$NAME) {
-     min_py <- min(df[grep(i, df$AU),]$PY, na.rm=TRUE)
-     max_py <- max(df[grep(i, df$AU),]$PY, na.rm=TRUE)
+     min_py <- min(df[grep(i, df$AU),]$PY, rm.NA=TRUE)
+     max_py <- max(df[grep(i, df$AU),]$PY, rm.NA=TRUE)
      df_tmp <- data.frame(NAME=i, MIN_PY = min_py, MAX_PY = max_py)
      df_py <- rbind(df_py, df_tmp)
   }
