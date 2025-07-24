@@ -12,10 +12,10 @@ PWI2(
 )
 }
 \arguments{
-\item{bib_df}{bibliographic dataframe variable from \link{convert2df}}
+\item{bib_df}{bibliographic dataframe variable from \link[bibliometrix]{convert2df}}
 
 \item{pw_pattern}{character variable (optional parameter) that is passed as
-search pattern to the \link{grep} function to identify the prize winners in
+search pattern to the \link[base]{grep} function to identify the prize winners in
 the data set}
 
 \item{method}{integer variable (optional parameter) that determines if only

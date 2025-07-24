@@ -15,7 +15,7 @@ countries
 }
 \description{
 Data frame containing a normalized index of countries.\cr
-Data are used by \code{\link{biblioAnalysis}} function
+Data are used by \code{\link[bibliometrix]{biblioAnalysis}} function
 to extract Country Field of Cited References and Authors.
 }
 \keyword{datasets}

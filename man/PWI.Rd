@@ -16,10 +16,10 @@ PWI(
 \arguments{
 \item{files}{character variable or list of character variables that contain(s)
 file name(s) of bibliographic data file(s) that are supported by the package
-\link{bibliometrix}}
+\link[bibliometrix]{bibliometrix}}
 
 \item{pw_pattern}{character variable (optional parameter) that is passed as
-search pattern to the \link{grep} function to identify the prize winners in
+search pattern to the \link[base]{grep} function to identify the prize winners in
 the data set}
 
 \item{method}{integer variable (optional parameter) that determines if only
@@ -32,11 +32,11 @@ and number of co-authorships}
 \item{verbosity}{level of verbosity (0=quiet and 1=informative)}
 
 \item{data_source}{specifies the data source; this parameter is forwarded to
-the function \link{convert2df} from the R package \link{bibliometrix}. The default
+the function \link[bibliometrix]{convert2df} from the R package \link[bibliometrix]{bibliometrix}. The default
 value is "wos"; other possible values are: "isi", "scopus", "dimensions", or "pubmed"}
 
 \item{data_format}{specifies the data format; this parameter is forwarded to
-the function \link{convert2df} from the R package \link{bibliometrix}. The default
+the function \link[bibliometrix]{convert2df} from the R package \link[bibliometrix]{bibliometrix}. The default
 value is "plaintext"; other possible values are: "api", "bibtex", "endnote", "csv",
 or "excel"}
 }

@@ -1,7 +1,7 @@
 Package: PWIR
 Title: Provides a Function to Calculate Prize Winner Indices Based on
         Bibliometric Data
-Version: 0.0.3
+Version: 0.0.3.1
 Authors@R: 
     person(given = "Robin",
            family = "Haunschild",
@@ -15,8 +15,9 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
 NeedsCompilation: no
-Packaged: 2023-10-20 09:29:43 UTC; rhaun
-Author: Robin Haunschild [aut, cre] (<https://orcid.org/0000-0001-7025-7256>)
+Packaged: 2025-07-24 10:39:58 UTC; rhaun
+Author: Robin Haunschild [aut, cre] (ORCID:
+    <https://orcid.org/0000-0001-7025-7256>)
 Maintainer: Robin Haunschild <R.Haunschild@fkf.mpg.de>
 Repository: CRAN
-Date/Publication: 2023-10-20 09:50:02 UTC
+Date/Publication: 2025-07-24 11:10:17 UTC

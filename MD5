@@ -1,10 +1,10 @@
-6bcd7a79db29c1de0a0e25158bcfad99 *DESCRIPTION
+1d0f9d370e66932f6b010f5efd4c87cb *DESCRIPTION
 ebf8413ddc0dc1bb9be4e54abdd4004e *NAMESPACE
 6da332c0e4e0c248ee9730b0909986a5 *R/PWI.R
 1dbbcf2910eff60d69d4bbe89a1b13a2 *R/PWI2.R
 473f83af81e04df5c609f55a00787ba6 *R/countries.R
 38fd3833c37a0ed81da67393595d940a *R/globals.R
 8d52e72351752517c9ab5ee912b027bf *data/countries.rda
-efacccdba83ac5724fb282fa62a3ee25 *man/PWI.Rd
-e428fe71eb3c69d72b604a54ad99e1fb *man/PWI2.Rd
-009abd361c47d9aca76fc54e18c5dc64 *man/countries.Rd
+5f5f0d325e4954f1e5163b11aa8c7287 *man/PWI.Rd
+95c7548d8c59f0c972836571f21450e9 *man/PWI2.Rd
+3ae7af97c95d08b830d69ef22ad6ba0e *man/countries.Rd
